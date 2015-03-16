@@ -10,7 +10,7 @@ Todo list..
 -Having the Changes logs on the MSGBOX when there is a new update would be cool. (todo)
 
 -More log to the .log to help debug when stacktrace is not very precise.
-(WIP)
+(WIP) (done/ always in progress)
 
 -Check LucidLogic MVP possible bsod. (Still needed ?)
 
