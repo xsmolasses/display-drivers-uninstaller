@@ -1,0 +1,33 @@
+name: Manual workflow
+
+on: workflow_dispatch
+
+env:
+  SOLUTION_FILE_PATH: "display-driver-uninstaller\\Display Driver Uninstaller.sln"
+  BUILD_CONFIGURATION: Release
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: microsoft/setup-msbuild@v2
+      with:
+        msbuild-architecture: x64
+
+    - working-directory: "${{github.workspace}}"
+      run: nuget restore "${{env.SOLUTION_FILE_PATH}}"
+
+    - working-directory: "${{github.workspace}}"
+      shell: cmd
+      run: |
+        MSBuild -m -p:Configuration="${{env.BUILD_CONFIGURATION}}" -p:Platform="Any CPU" "${{env.SOLUTION_FILE_PATH}}"
+
+    - uses: actions/upload-artifact@v4
+      with:
+        path: "${{github.workspace}}"
